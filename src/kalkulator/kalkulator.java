@@ -1,129 +1,140 @@
 package kalkulator;
  
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.StreamTokenizer;
 import java.util.Scanner;
 
 public class kalkulator {
  
-  /* Prosty kalkulator wykonuj¹cy operacje dodawania, odejmowania, mno¿enia
-   * dzielenia oraz operacjê modulo w zale¿noœci od wyboru u¿ytkownika
-   */
+  //Kalkulator wykonuje dzialania takie jak +,-,*,/ na trzech liczbach
  
     public static void main(String[] args) 
     {
-       int pierwsza_l;  // dwie liczby, na których bêdziemy wykonywaæ operacjê
-       int druga_l;
-       int trzecia_l;
-       char znak;      // zmienna przechowuj¹ca symbol operacji do wykonania
-       int wynik=0;
+       float pierwsza_l = 0;  	// pierwsza wczytana liczba 
+       float druga_l = 0;		// druga wczytana liczba 
+       float trzecia_l = 0;		// trzecia wczytana liczba 
+       char znak = 0;       	// zmienna przechowuj¹ca symbol operacji do wykonania
+       char znak2 = 0;	    	//zmienna przechowuj¹ca symbol operacji do wykonania
+       float wynik=0;
+       int wybor = 0;      
+       int wartosc;
        
+       Scanner wej = new Scanner(System.in);
        
-       Scanner wej = new Scanner(System.in);   // wczytywanie zmiennych przy pomocy Scanner
-       System.out.println("Podaj pierwsz¹ liczbê:"); 
-       pierwsza_l = wej.nextInt();
-       System.out.println("Podaj drug¹ liczbê:");
-       druga_l = wej.nextInt();
-       System.out.println("Podaj trzecia liczbe:"); 
-       trzecia_l = wej.nextInt();
- 
-    
-      
- 
-       System.out.println("Jak¹ operacje chcesz wykonac na pierwszych dwoch liczbach?");
+       System.out.println("KALKULATOR");
+       System.out.println("Wybierz 1 - jesli ma czytac z klawiatury");
+       System.out.println("Wybierz 2 - jesli ma czytac z pliku");
+       wybor = wej.nextInt();
        
-       System.out.println("Dodawanie - wciœnij +");
-       System.out.println("Odejmowanie - wciœnij -");
-       System.out.println("Mno¿enie - wciœnij *");
-       System.out.println("Dzielenie - wciœnij /");
-       
-       
-       
-       znak = wej.next().charAt(0);  // pobieramy symbol operacji od u¿ytkownika
-       
-       switch(znak)     // w zale¿noœci od wyboru wykonujemy dan¹ operacjê
+       switch(wybor)
        {
-           case '+':    // dodawanie dwóch zmiennych
-           {
+	       case 1:
+	       {
+		       while( znak !='$' && znak2 !='$') //po wpisaniu znaku konczy dzialanie
+		       {
+		    	   
+		       
+		    	   Scanner wej1 = new Scanner(System.in);   // wczytywanie zmiennych przy pomocy Scanner
+		    	   System.out.println("\nPodaj pierwsz¹ liczbê:"); 
+		    	   pierwsza_l = wej1.nextInt();
+		       
+		    	   System.out.println("Podaj drug¹ liczbê:");
+		    	   druga_l = wej1.nextInt();
+		    	   System.out.println("Podaj trzecia liczbe:"); 
+		    	   trzecia_l = wej1.nextInt();
+		       
+			       System.out.println("Jaka operacje chcesz wykonac na pierwszych dwoch liczbach");
+			       znak2 = wej1.next().charAt(0);
+			       
+			       System.out.println("Jaka operacje chcesz wykonac na drugiej i trzeciej liczbie");
+			       znak = wej1.next().charAt(0);
+		       
+			       if(znak2 == '+')
+			       {
+			    	   if(znak == '*')
+			    		   wynik = pierwsza_l+(druga_l*trzecia_l);
+			    	   if(znak == '/')
+			    		   wynik = pierwsza_l+(druga_l/trzecia_l);
+			    	   if(znak == '-')
+			    		   wynik = pierwsza_l+druga_l-trzecia_l;
+			    	   if(znak == '+')
+			    		   wynik = pierwsza_l+druga_l+trzecia_l;
+			       }
+			       if(znak2 == '-')
+			       {
+			    	   if(znak == '*')
+			    		   wynik = pierwsza_l-(druga_l*trzecia_l);
+			    	   if(znak == '/')
+			    		   wynik = pierwsza_l-(druga_l/trzecia_l);
+			    	   if(znak == '-')
+			    		   wynik = pierwsza_l-druga_l-trzecia_l;
+			    	   if(znak == '+')
+			    		   wynik = pierwsza_l-druga_l+trzecia_l;
+			       }
+			       if(znak2 == '*')
+			       {
+			    	   if(znak == '*')
+			    		   wynik = pierwsza_l*druga_l*trzecia_l;
+			    	   if(znak == '/')
+			    		   wynik = pierwsza_l*druga_l/trzecia_l;
+			    	   if(znak == '-')
+			    		   wynik = (pierwsza_l*druga_l)-trzecia_l;
+			    	   if(znak == '+')
+			    		   wynik = (pierwsza_l*druga_l)+trzecia_l;
+			       }   
+			       if(znak2 == '/')
+			       {
+			    	   if(znak == '*')
+			    		   wynik = pierwsza_l/druga_l*trzecia_l;
+			    	   if(znak == '/')
+			    		   wynik = pierwsza_l/druga_l/trzecia_l;
+			    	   if(znak == '-')
+			    		   wynik = (pierwsza_l/druga_l)-trzecia_l;
+			    	   if(znak == '+')
+			    		   wynik = (pierwsza_l/druga_l)+trzecia_l;
+			       }
+			       
+			       
+			       System.out.format("%.2f %c %.2f %c %.2f = %.2f",pierwsza_l,znak2,druga_l,znak,trzecia_l,wynik);
+		       }
+	       }
+	       case 2:
+		    {
+		    	FileReader fr = null;
+				try {
+		            fr = new FileReader("plik.txt");
+		         } catch (FileNotFoundException e) {
+		               System.out.println("B£¥D PRZY OTWIERANIU PLIKU!");
+		               System.exit(1);
+		         }
 
-        	   System.out.format("%d + %d = %d",pierwsza_l, druga_l,pierwsza_l + druga_l);
-        	   wynik=(pierwsza_l + druga_l);
-        	   
-               break;
-          
-           }
-           case '-':    // odejmowanie dwóch zmiennych
-           {
-        	   System.out.format("%d - %d = %d",pierwsza_l, druga_l,pierwsza_l - druga_l);
-        	   wynik=(pierwsza_l - druga_l);
-               break;
-           }
-           case '*':    // mno¿enie dwóch zmiennych
-           {
-        	   System.out.format("%d * %d = %d",pierwsza_l, druga_l,pierwsza_l * druga_l);
-        	   wynik=(pierwsza_l * druga_l);
-               break;
-           }
-           case '/':   // sprawdzenie, czy druga zmienna nie jest zerem oraz
-           {           // dzielenie dwóch zmiennych 
-               if(druga_l !=0)
-               {
-                 
-                 System.out.format("%d / %d = %d",pierwsza_l, druga_l,pierwsza_l / druga_l + "oraz reszty: " + pierwsza_l % druga_l);
-                 wynik=(pierwsza_l / druga_l);
-               }
-               else
-               {
-                   System.out.println("Nie dzielimy przez zero!!!");
-               }
-               break;
-           }
+		         StreamTokenizer st = new StreamTokenizer(fr);
+		         //ODCZYT KOLEJNYCH "TOKENÓW" Z PLIKU:
+		         try {
+		            
+					while( (wartosc = st.nextToken()) != StreamTokenizer.TT_EOF ){
+		                  if(wartosc == StreamTokenizer.TT_WORD)
+		                        System.out.println("Wczytano s³owo: "+ st.sval);
+		                  else if(wartosc == StreamTokenizer.TT_NUMBER)  
+		                        System.out.println("Wczytano liczbê: "+ st.nval);
+		             }
+		          } catch (IOException e) {
+		                System.out.println("B£¥D ODCZYTU Z PLIKU!");
+		                System.exit(2);
+		          }
 
+		          //ZAMYKANIE PLIKU:
+		          try {
+		             fr.close();
+		          } catch (IOException e) {
+		               System.out.println("B£¥D PRZY ZAMYKANIU PLIKU!");
+		               System.exit(3);
+		          }
+		    	
+			  break;
+		    }
        }
-       
-       /////////////////////////druga operacja
-       
-       System.out.println("\nJak¹ operacje chcesz wykonac na drugiej i trzeciej liczbie?");
-       
- znak = wej.next().charAt(0);  
-       
-       switch(znak)     
-       {
-           case '+':    // dodawanie dwóch zmiennych
-           {
-
-        	   System.out.format("%d + %d = %d",wynik, trzecia_l, wynik + trzecia_l);
-        	  
-               break;
-          
-           }
-           case '-':    // odejmowanie dwóch zmiennych
-           {
-        	   System.out.format("%d - %d = %d",wynik, trzecia_l, wynik - trzecia_l);
-               break;
-           }
-           case '*':    // mno¿enie dwóch zmiennych
-           {
-        	   System.out.format("%d * %d = %d",wynik, trzecia_l, wynik * trzecia_l);
-               break;
-           }
-           case '/':   // sprawdzenie, czy druga zmienna nie jest zerem oraz
-           {           // dzielenie dwóch zmiennych 
-               if(trzecia_l !=0)
-               {
-                 
-                 System.out.format("%d / %d = %d",wynik, trzecia_l, wynik / trzecia_l);
-               }
-               else
-               {
-                   System.out.println("Nie dzielimy przez zero!!!");
-               }
-               break;
-           }
-
-       }
-       
-       
-       
-       
- 
     }
 }
