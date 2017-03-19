@@ -36,7 +36,7 @@ public class kalkulator {
 		       {
 		    	   
 		       
-		    	   Scanner wej1 = new Scanner(System.in);   // wczytywanie zmiennych przy pomocy Scanner
+		    	   Scanner wej1 = new Scanner(System.in);   
 		    	   System.out.println("\nPodaj pierwsz¹ liczbê:"); 
 		    	   pierwsza_l = wej1.nextInt();
 		       
@@ -111,7 +111,7 @@ public class kalkulator {
 		         }
 
 		         StreamTokenizer st = new StreamTokenizer(fr);
-		         //ODCZYT KOLEJNYCH "TOKENÓW" Z PLIKU:
+		         //odczyt z pliku:
 		         try {
 		            
 					while( (wartosc = st.nextToken()) != StreamTokenizer.TT_EOF ){
@@ -125,7 +125,7 @@ public class kalkulator {
 		                System.exit(2);
 		          }
 
-		          //ZAMYKANIE PLIKU:
+		          //zamykanie pliku
 		          try {
 		             fr.close();
 		          } catch (IOException e) {
